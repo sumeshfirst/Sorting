@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+
+int getPiv(int arr[], int start, int end)
+{
+	int piv = arr[end];
+	int in = start - 1;
+	for (int j = start; j <= end - 1; j++)
+	{
+		if (arr[j] <= piv)
+		{
+			in++;
+			//Swap
+			int temp = arr[in];
+			arr[in] = arr[j];
+			arr[j] = temp;
+		}
+	}
+	//Swap with piv
+	int temp = arr[in + 1];
+	arr[in + 1] = arr[end];
+	arr[end] = temp;
+	return in + 1;
+}
+void QuickSortT(int arr[], int s, int l)
+{
+	if (s < l)
+	{
+		int p = getPiv(arr, s, l);
+		QuickSortT(arr, s, p - 1);
+		QuickSortT(arr, p + 1, l);
+	}
+}
+int main()
+{
+	int arr[5] = { 8,9,2,5,6 };
+	int size = sizeof(arr) / sizeof(arr[0]);
+	cout << "Before Sorting" << endl;
+	for (int i = 0; i < size; i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	QuickSortT(arr, 0, size - 1);
+	cout << "After Sorting" << endl;
+	for (int i = 0; i < size; i++)
+	{
+		cout << arr[i] << " ";
+	}
+	return(0);
+}
